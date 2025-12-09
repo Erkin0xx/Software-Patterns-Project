@@ -118,7 +118,7 @@ export default function DashboardPage() {
       {/* Mobile Menu Button */}
       <button
         onClick={() => setIsSidebarOpen(true)}
-        className="md:hidden fixed top-4 left-4 z-40 p-2 rounded-lg bg-card border border-border"
+        className="md:hidden fixed top-4 right-4 z-40 p-2 rounded-lg bg-card border border-border"
       >
         <Menu className="h-5 w-5" />
       </button>
