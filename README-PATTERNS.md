@@ -3,6 +3,7 @@
 A collaborative todo application demonstrating three software design patterns using Next.js, Supabase, and TypeScript.
 
 **🚀 Live Demo:** [https://software-patterns-project.vercel.app](https://software-patterns-project.vercel.app)
+**📦 GitHub Repository:** [https://github.com/Erkin0xx/Software-Patterns-Project](https://github.com/Erkin0xx/Software-Patterns-Project)
 
 ## How It Works
 
