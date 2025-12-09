@@ -50,7 +50,7 @@ export async function getProjectMembers(projectId: string): Promise<ProjectMembe
     updated_at: member.accepted_at || new Date().toISOString(),
     user: {
       email: member.user_id, // Display user ID for now
-      full_name: null,
+      full_name: undefined,
     },
   }));
 }
