@@ -162,7 +162,7 @@ export async function deleteTask(taskId: string): Promise<void> {
 // Save command history for undo/redo functionality (Command pattern)
 export async function saveCommandHistory(
   projectId: string,
-  history: Array<{ type: string; data: any }>
+  history: Array<{ description: string; timestamp: string }>
 ): Promise<void> {
   const supabase = createClient();
   const { data: { user } } = await supabase.auth.getUser();
@@ -178,8 +178,8 @@ export async function saveCommandHistory(
     const entries = history.map((cmd) => ({
       project_id: projectId,
       user_id: user.id,
-      command_type: cmd.type,
-      command_data: cmd.data,
+      command_type: cmd.description,
+      command_data: { timestamp: cmd.timestamp },
     }));
 
     const { error } = await supabase
