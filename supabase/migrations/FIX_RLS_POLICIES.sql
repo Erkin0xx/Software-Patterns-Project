@@ -1,9 +1,3 @@
--- ========================================
--- FIX RLS POLICIES - SCRIPT COMPLET
--- Exécutez ce script dans le SQL Editor de Supabase
--- ========================================
-
--- 1. SUPPRIMER TOUTES LES POLITIQUES EXISTANTES SUR LA TABLE TASKS
 DO $$
 DECLARE
     r RECORD;
@@ -13,7 +7,7 @@ BEGIN
     END LOOP;
 END $$;
 
--- 2. VÉRIFIER QUE LA COLONNE POSITION EXISTE
+
 DO $$
 BEGIN
     IF NOT EXISTS (
@@ -27,9 +21,6 @@ BEGIN
     END IF;
 END $$;
 
--- 3. CRÉER LES NOUVELLES POLITIQUES RLS SIMPLIFIÉES
-
--- SELECT: Tout le monde peut voir les tâches des projets où ils sont membres ou propriétaires
 CREATE POLICY "allow_select_tasks"
 ON tasks
 FOR SELECT
@@ -47,7 +38,6 @@ USING (
   )
 );
 
--- INSERT: Les propriétaires, admins et editors peuvent ajouter des tâches
 CREATE POLICY "allow_insert_tasks"
 ON tasks
 FOR INSERT
@@ -66,7 +56,6 @@ WITH CHECK (
   )
 );
 
--- UPDATE: Les propriétaires, admins et editors peuvent modifier des tâches
 CREATE POLICY "allow_update_tasks"
 ON tasks
 FOR UPDATE
@@ -99,7 +88,6 @@ WITH CHECK (
   )
 );
 
--- DELETE: Les propriétaires, admins et editors peuvent supprimer des tâches
 CREATE POLICY "allow_delete_tasks"
 ON tasks
 FOR DELETE
@@ -118,10 +106,8 @@ USING (
   )
 );
 
--- 4. INITIALISER LES POSITIONS SI NÉCESSAIRE
 UPDATE tasks SET position = 0 WHERE position IS NULL;
 
--- 5. VÉRIFICATION FINALE
 DO $$
 BEGIN
     RAISE NOTICE '========================================';
