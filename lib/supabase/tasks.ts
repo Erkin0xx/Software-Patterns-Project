@@ -177,7 +177,7 @@ export async function saveCommandHistory(
   if (history.length > 0) {
     const entries = history.map((cmd) => ({
       project_id: projectId,
-      user_id: user.id,
+      user_id: user!.id,
       command_type: cmd.description,
       command_data: { timestamp: cmd.timestamp },
     }));

@@ -113,7 +113,7 @@ export async function createProject(name: string, description?: string): Promise
     .insert({
       name,
       description,
-      owner_id: user.id,
+      owner_id: user!.id,
     })
     .select()
     .single();

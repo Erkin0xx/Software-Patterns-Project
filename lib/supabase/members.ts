@@ -121,18 +121,18 @@ export async function inviteUserToProject(
       project_id: projectId,
       user_id: userId,
       role,
-      invited_by: currentUser.id,
+      invited_by: currentUser!.id,
     })
     .select()
     .single();
 
   if (error) {
-    if (error.code === '23505') {
+    if (error?.code === '23505') {
       // Unique constraint violation
       throw new Error('User is already a member of this project');
     }
     console.error('Error inviting user:', error);
-    throw new Error(error.message);
+    throw new Error(error?.message || 'Failed to invite user');
   }
 
   return data as ProjectMember;
