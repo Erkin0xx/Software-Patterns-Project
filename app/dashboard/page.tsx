@@ -115,8 +115,8 @@ export default function DashboardPage() {
   return (
     <div className="min-h-screen bg-background">
       <div className="flex h-screen">
-        {/* Sidebar */}
-        <aside className="w-72 border-r border-border p-8">
+        {/* Sidebar - Hidden on mobile */}
+        <aside className="hidden md:block w-72 border-r border-border p-8">
           <div className="flex items-center gap-3 mb-12">
             <div className="h-10 w-10 rounded-lg bg-primary flex items-center justify-center">
               <CheckSquare className="h-5 w-5 text-primary-foreground" />
@@ -172,18 +172,18 @@ export default function DashboardPage() {
 
         {/* Main Content */}
         <main className="flex-1 overflow-auto">
-          <div className="p-8">
+          <div className="p-4 md:p-8">
             {/* Header */}
-            <div className="flex items-center justify-between mb-8">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
               <div>
-                <h1 className="text-3xl font-bold mb-2">My Projects</h1>
+                <h1 className="text-2xl md:text-3xl font-bold mb-2">My Projects</h1>
                 <p className="text-sm text-muted-foreground">
                   Welcome back, {user?.fullName || user?.email}
                 </p>
               </div>
               <Button
                 onClick={() => setIsCreating(true)}
-                className="rounded-xl px-6 h-11"
+                className="rounded-xl px-4 sm:px-6 h-10 sm:h-11 w-full sm:w-auto"
               >
                 <PlusCircle className="mr-2 h-4 w-4" />
                 Quick Create
