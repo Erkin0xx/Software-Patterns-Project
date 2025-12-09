@@ -726,12 +726,6 @@ function createTask(title: string) {
 # Install dependencies
 npm install
 
-# Configure Supabase in .env.local
-NEXT_PUBLIC_SUPABASE_URL=your_url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your_key
-
-# Run migrations from supabase/migrations/
-
 # Start dev server
 npm run dev
 ```
