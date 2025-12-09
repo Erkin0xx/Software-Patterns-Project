@@ -195,7 +195,7 @@ export async function saveCommandHistory(
 
 export async function loadCommandHistory(
   projectId: string
-): Promise<Array<{ type: string; data: any }>> {
+): Promise<Array<{ description: string; timestamp: string }>> {
   const supabase = createClient();
 
   const { data, error } = await supabase
@@ -210,8 +210,8 @@ export async function loadCommandHistory(
   }
 
   return data.map((entry) => ({
-    type: entry.command_type,
-    data: entry.command_data,
+    description: entry.command_type,
+    timestamp: entry.command_data?.timestamp || new Date().toISOString(),
   }));
 }
 
