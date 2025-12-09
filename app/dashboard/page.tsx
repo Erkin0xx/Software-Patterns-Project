@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useRouter } from 'next/navigation';
 import { Project } from '@/lib/types';
-import { Plus, FolderOpen, LogOut, User, PlusCircle, Trash2, CheckSquare } from 'lucide-react';
+import { Plus, FolderOpen, LogOut, User, PlusCircle, Trash2, CheckSquare, Menu, X } from 'lucide-react';
 import { fetchUserProjects, createProject, deleteProject } from '@/lib/supabase/projects';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -31,6 +31,7 @@ export default function DashboardPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   useEffect(() => {
     if (!authLoading && user) {
@@ -114,9 +115,39 @@ export default function DashboardPage() {
 
   return (
     <div className="min-h-screen bg-background">
+      {/* Mobile Menu Button */}
+      <button
+        onClick={() => setIsSidebarOpen(true)}
+        className="md:hidden fixed top-4 left-4 z-40 p-2 rounded-lg bg-card border border-border"
+      >
+        <Menu className="h-5 w-5" />
+      </button>
+
+      {/* Overlay for mobile sidebar */}
+      {isSidebarOpen && (
+        <div
+          className="md:hidden fixed inset-0 bg-black/50 z-40"
+          onClick={() => setIsSidebarOpen(false)}
+        />
+      )}
+
       <div className="flex h-screen">
-        {/* Sidebar - Hidden on mobile */}
-        <aside className="hidden md:block w-72 border-r border-border p-8">
+        {/* Sidebar */}
+        <aside className={`
+          fixed md:static inset-y-0 left-0 z-50
+          w-72 border-r border-border p-8 bg-background
+          transform transition-transform duration-300 ease-in-out
+          ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}
+          md:translate-x-0
+        `}>
+          {/* Close button for mobile */}
+          <button
+            onClick={() => setIsSidebarOpen(false)}
+            className="md:hidden absolute top-4 right-4 p-2 rounded-lg hover:bg-card"
+          >
+            <X className="h-5 w-5" />
+          </button>
+
           <div className="flex items-center gap-3 mb-12">
             <div className="h-10 w-10 rounded-lg bg-primary flex items-center justify-center">
               <CheckSquare className="h-5 w-5 text-primary-foreground" />
@@ -128,6 +159,7 @@ export default function DashboardPage() {
             <div className="text-sm text-muted-foreground mb-3">Menu</div>
             <Link
               href="/dashboard"
+              onClick={() => setIsSidebarOpen(false)}
               className="flex items-center gap-3 px-4 py-2.5 rounded-xl bg-card text-sm font-medium"
             >
               <span className="text-lg">🎯</span>
@@ -142,6 +174,7 @@ export default function DashboardPage() {
                     <Link
                       key={project.id}
                       href={`/project/${project.id}`}
+                      onClick={() => setIsSidebarOpen(false)}
                       className="flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-card text-sm w-full text-left transition-colors"
                     >
                       <FolderOpen className="w-4 h-4 flex-shrink-0" />
