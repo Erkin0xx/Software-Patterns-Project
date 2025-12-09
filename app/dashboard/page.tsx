@@ -345,7 +345,7 @@ export default function DashboardPage() {
 
             {projects.length > 0 && filteredProjects.length === 0 && (
               <div className="text-center py-12">
-                <p className="text-muted-foreground">No projects found matching "{searchQuery}"</p>
+                <p className="text-muted-foreground">No projects found matching &ldquo;{searchQuery}&rdquo;</p>
               </div>
             )}
 
